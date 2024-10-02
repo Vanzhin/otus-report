@@ -1,0 +1,19 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <entity name="App\Reports\Domain\Aggregate\Report\Report" table="report_report">
+        <id name="id" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="title" type="string"/>
+        <field name="template" type="string"/>
+        <field name="approverId" column="approver_id" type="string" length="26"/>
+        <field name="creatorId" column="creator_id" type="string" length="26"/>
+        <field name="status" type="string" enum-type="App\Reports\Domain\Aggregate\Report\ReportStatus"/>
+        <field name="createdAt" type="datetime_immutable" column="created_at" nullable="false"/>
+        <field name="updatedAt" type="datetime_immutable" column="updated_at" nullable="true"/>
+        <field name="variables" type="json"/>
+        <field name="path" type="string"/>
+    </entity>
+</doctrine-mapping>
