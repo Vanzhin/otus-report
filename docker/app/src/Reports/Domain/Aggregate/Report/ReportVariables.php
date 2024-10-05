@@ -20,6 +20,11 @@ class ReportVariables implements \JsonSerializable
         return $this->list;
     }
 
+    public function setVariable(ReportVariable $variable): void
+    {
+        $this->list[$variable->getName()] = $variable;
+    }
+
     #[\Override] public function jsonSerialize(): array
     {
         return $this->list;

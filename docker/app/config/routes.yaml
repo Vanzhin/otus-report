@@ -9,5 +9,5 @@ kernel:
   type: attribute
 
 reports:
-  resource: ../src/Re/Infrastructure/Controller/
+  resource: ../src/Reports/Infrastructure/Controller/
   type: attribute
