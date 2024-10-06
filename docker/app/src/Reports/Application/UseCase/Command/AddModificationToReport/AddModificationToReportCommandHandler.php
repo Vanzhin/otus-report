@@ -8,7 +8,6 @@ use App\Reports\Application\Service\AccessController\ReportAccessControl;
 use App\Reports\Domain\Factory\ReportModificationFactory;
 use App\Reports\Domain\Repository\ReportModificationRepositoryInterface;
 use App\Reports\Domain\Repository\ReportRepositoryInterface;
-use App\Reports\Domain\Service\ReportModificationOrganizer;
 use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Domain\Service\AssertService;
 use App\Shared\Infrastructure\Exception\AppException;
