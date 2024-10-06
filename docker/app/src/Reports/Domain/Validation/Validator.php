@@ -8,7 +8,7 @@ use App\Reports\Domain\Validation\VO\Error;
 use Symfony\Component\Validator\Constraints\Collection;
 use Symfony\Component\Validator\ValidatorBuilder;
 
-class Validator
+readonly class Validator
 {
     public function __construct(
         private ValidatorBuilder $validatorBuilder,
@@ -27,7 +27,7 @@ class Validator
         foreach ($violations as $violation) {
             $errors[] = new Error($violation->getPropertyPath(), $violation->getMessage());
         }
+
         return $errors;
     }
-
 }

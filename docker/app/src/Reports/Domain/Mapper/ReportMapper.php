@@ -27,18 +27,20 @@ class ReportMapper
                 new Assert\NotBlank(),
                 new Assert\Type('string'),
             ],
-            'variables' => new Assert\All([
-                new Assert\Collection([
-                    'name' => [
-                        new Assert\NotBlank(),
-                        new Assert\Type('string'),
-                    ],
-                    'value' => [
-                        new Assert\NotBlank(),
-                        new Assert\Type('string'),
-                    ],
-                ])
-            ]),
+            'variables' => new Assert\Optional(
+                new Assert\All([
+                    new Assert\Collection([
+                        'name' => [
+                            new Assert\NotBlank(),
+                            new Assert\Type('string'),
+                        ],
+                        'value' => [
+                            new Assert\NotBlank(),
+                            new Assert\Type('string'),
+                        ],
+                    ])
+                ]),
+            )
         ]);
     }
 

@@ -5,11 +5,17 @@ declare(strict_types=1);
 namespace App\Reports\Domain\Factory;
 
 use App\Reports\Domain\Aggregate\Report\Report;
-use App\Reports\Domain\Aggregate\Report\ReportVariable;
-use App\Reports\Domain\Aggregate\Report\ReportVariables;
+use App\Reports\Domain\Aggregate\Report\VO\ReportVariable;
+use App\Reports\Domain\Aggregate\Report\VO\ReportVariables;
 
-class ReportFactory
+readonly class ReportFactory
 {
+    public function __construct(
+        private ReportModificationFactory $reportModificationFactory,
+    )
+    {
+    }
+
     public function create(
         string $title,
         string $template,
@@ -19,16 +25,17 @@ class ReportFactory
     ): Report
     {
         $vars = new ReportVariables();
-        foreach ($variables as  $variable) {
+        foreach ($variables as $variable) {
             $vars->setVariable(new ReportVariable($variable['name'], $variable['value']));
         }
 
-        return new Report($title,
+        return new Report(
+            $title,
             $template,
-            $vars,
+            $vars->jsonSerialize(),
             $creatorId,
             $approverId,
+            $this->reportModificationFactory
         );
     }
-
 }

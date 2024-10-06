@@ -4,28 +4,39 @@ declare(strict_types=1);
 
 namespace App\Reports\Domain\Aggregate\Report;
 
+use App\Reports\Domain\Aggregate\Report\VO\ReportVariables;
+use App\Reports\Domain\Event\ReportCreatedEvent;
+use App\Reports\Domain\Factory\ReportModificationFactory;
+use App\Shared\Domain\Aggregate\Aggregate;
 use App\Shared\Domain\Service\UlidService;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
-class Report
+class Report extends Aggregate
 {
     private readonly string $id;
     private \DateTimeImmutable $createdAt;
-    private ?\DateTimeImmutable $updatedAt = null;
     private ?string $path = null;
-    private readonly ReportStatus $status;
 
+    /**
+     * @var Collection<ReportModification>
+     */
+    private Collection $modifications;
 
     public function __construct(
-        private string          $title,
-        private string          $template,
-        private ReportVariables $variables,
-        private readonly string $creatorId,
-        private readonly string $approverId,
+        private string                             $title,
+        private string                             $template,
+        private array                              $variables,
+        private readonly string                    $creatorId,
+        private readonly string                    $approverId,
+        private readonly ReportModificationFactory $reportModificationFactory,
     )
     {
         $this->id = UlidService::generate();
         $this->createdAt = new \DateTimeImmutable();
-        $this->status = ReportStatus::CREATED;
+        $this->modifications = new ArrayCollection();
+        $this->modifications->add($this->reportModificationFactory->create($this, ReportStatus::CREATED->value));
+        $this->raise(new ReportCreatedEvent($creatorId, $this->id, ReportStatus::CREATED->value));
     }
 
     public function getId(): string
@@ -38,11 +49,6 @@ class Report
         return $this->createdAt;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
-    {
-        return $this->updatedAt;
-    }
-
     public function getCreatorId(): string
     {
         return $this->creatorId;
@@ -51,11 +57,6 @@ class Report
     public function getApproverId(): string
     {
         return $this->approverId;
-    }
-
-    public function getStatus(): ReportStatus
-    {
-        return $this->status;
     }
 
     public function getTitle(): string
@@ -73,9 +74,44 @@ class Report
         return $this->template;
     }
 
-    public function getVariables(): ReportVariables
+    public function isOwnedBy(string $userId): bool
+    {
+        return $this->creatorId === $userId;
+    }
+
+    public function isApprovedBy(string $userId): bool
+    {
+        return $this->approverId === $userId;
+    }
+
+    public function getModifications(): Collection
+    {
+        return $this->modifications;
+    }
+
+    public function getVariables(): ReportVariables|array
     {
         return $this->variables;
+    }
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    public function setTemplate(string $template): void
+    {
+        $this->template = $template;
+    }
+
+    public function setVariables(array $variables): void
+    {
+        $this->variables = $variables;
+    }
+
+    public function getLastModification(): ?ReportModification
+    {
+        return $this->modifications->last();
     }
 
 }

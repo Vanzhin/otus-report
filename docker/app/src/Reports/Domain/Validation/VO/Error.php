@@ -24,6 +24,11 @@ readonly class Error implements \JsonSerializable
         return $this->message;
     }
 
+    public function getFullMessage(): string
+    {
+        return $this->property . ' - ' . $this->message;
+    }
+
     public function jsonSerialize(): array
     {
         return get_object_vars($this);

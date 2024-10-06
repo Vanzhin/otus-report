@@ -10,4 +10,6 @@ interface ReportRepositoryInterface
 {
     public function save(Report $report): void;
 
+    public function findOneById(string $id): ?Report;
+
 }

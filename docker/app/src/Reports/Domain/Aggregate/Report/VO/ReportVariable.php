@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace App\Reports\Domain\Aggregate\Report;
+namespace App\Reports\Domain\Aggregate\Report\VO;
 
 class ReportVariable implements \JsonSerializable
 {

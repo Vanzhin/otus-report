@@ -22,4 +22,8 @@ class ReportRepository extends ServiceEntityRepository implements ReportReposito
         $this->getEntityManager()->flush();
     }
 
+    #[\Override] public function findOneById(string $id): ?Report
+    {
+        return $this->findOneBy(['id' => $id]);
+    }
 }

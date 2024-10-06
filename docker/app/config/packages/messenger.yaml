@@ -6,6 +6,8 @@ framework:
                 middleware:
                     - doctrine_transaction
             query.bus:
+            event.bus:
+                default_middleware: allow_no_handlers
             message.bus:
                 default_middleware: allow_no_handlers
 

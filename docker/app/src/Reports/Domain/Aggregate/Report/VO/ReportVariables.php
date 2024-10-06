@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 
-namespace App\Reports\Domain\Aggregate\Report;
+namespace App\Reports\Domain\Aggregate\Report\VO;
 
 class ReportVariables implements \JsonSerializable
 {
@@ -27,6 +27,6 @@ class ReportVariables implements \JsonSerializable
 
     #[\Override] public function jsonSerialize(): array
     {
-        return $this->list;
+        return array_values($this->list);
     }
 }

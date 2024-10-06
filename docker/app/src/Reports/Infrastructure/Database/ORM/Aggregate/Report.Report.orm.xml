@@ -10,10 +10,14 @@
         <field name="template" type="string"/>
         <field name="approverId" column="approver_id" type="string" length="26"/>
         <field name="creatorId" column="creator_id" type="string" length="26"/>
-        <field name="status" type="string" enum-type="App\Reports\Domain\Aggregate\Report\ReportStatus"/>
         <field name="createdAt" type="datetime_immutable" column="created_at" nullable="false"/>
-        <field name="updatedAt" type="datetime_immutable" column="updated_at" nullable="true"/>
+        <one-to-many field="modifications" target-entity="App\Reports\Domain\Aggregate\Report\ReportModification"
+                     mapped-by="report">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
         <field name="variables" type="json"/>
-        <field name="path" type="string"/>
+        <field name="path" type="string" nullable="true"/>
     </entity>
 </doctrine-mapping>
