@@ -109,6 +109,16 @@ class Report extends Aggregate
         $this->variables = $variables;
     }
 
+    public function setPath(?string $path): void
+    {
+        $this->path = $path;
+    }
+
+    public function canBeEdited(): bool
+    {
+        return !in_array($this->getLastModification()->getStatus()->value, ReportStatus::getBlockedStatuses());
+    }
+
     public function getLastModification(): ?ReportModification
     {
         return $this->modifications->last();

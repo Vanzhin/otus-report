@@ -28,6 +28,9 @@ readonly class UpdateReportCommandHandler implements CommandHandlerInterface
         if (!$this->accessControl->canAccess($command->userId, $report)) {
             throw new AccessDeniedHttpException('Access denied.');
         }
+        if (!$report->canBeEdited()) {
+            throw new AppException('Report blocked for edit.');
+        }
         if ($command->reportDTO->template) {
             $report->setTemplate($command->reportDTO->template);
         }

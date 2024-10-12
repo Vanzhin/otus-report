@@ -19,4 +19,9 @@ enum ReportStatus: string
         return array_column(self::cases(), 'value');
     }
 
+    public static function getBlockedStatuses(): array
+    {
+        return array_column([self::APPROVED, self::SEND_TO_APPROVE], 'value');
+    }
+
 }

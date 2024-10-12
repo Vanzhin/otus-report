@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Reports\Domain\Aggregate\Report;
 
 use App\Reports\Domain\Aggregate\Report\Specification\ReportModificationSpecification;
+use App\Reports\Domain\Event\ReportModificationCreatedEvent;
+use App\Shared\Domain\Aggregate\Aggregate;
 use App\Shared\Domain\Service\UlidService;
 
-readonly class ReportModification
+class ReportModification extends Aggregate
 {
     private string $id;
     private \DateTimeImmutable $changedAt;
@@ -24,6 +26,7 @@ readonly class ReportModification
         $this->changedAt = new \DateTimeImmutable();
         $this->specification = $specification;
         $this->setStatus($status);
+        $this->raise(new ReportModificationCreatedEvent($report->getId(), $this->status->value));
     }
 
     public function getId(): string
