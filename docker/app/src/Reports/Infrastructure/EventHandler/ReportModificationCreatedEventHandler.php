@@ -32,7 +32,7 @@ class ReportModificationCreatedEventHandler implements EventHandlerInterface
             $event->report->setPath('/path-to-report/' . $event->report->getId() . '.pdf');
         }
         $reportDto = $this->reportDTOTransformer->fromReportEntity($event->report);
-        $message = new ExternalMessageToForward($event->report->getLastModification()->getStatus()->value, $reportDto->jsonSerialize());
+        $message = new ExternalMessageToForward($event->status, $reportDto->jsonSerialize());
         $envelope = new Envelope($message, [new AmqpStamp("#")]);
 
         $this->messageBus->execute($envelope);
