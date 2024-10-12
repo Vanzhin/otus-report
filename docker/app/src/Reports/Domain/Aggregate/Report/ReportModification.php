@@ -26,7 +26,7 @@ class ReportModification extends Aggregate
         $this->changedAt = new \DateTimeImmutable();
         $this->specification = $specification;
         $this->setStatus($status);
-        $this->raise(new ReportModificationCreatedEvent($report->getId(), $this->status->value));
+        $this->raise(new ReportModificationCreatedEvent($this->report, $this->status->value));
     }
 
     public function getId(): string
