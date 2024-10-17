@@ -7,7 +7,6 @@ ENV PUBLIC_DIR=$work_dir/app/public
 ENV INDEX_FILE=index.php
 
 # выполняется установка утилит и расширений
-# выполняется установка утилит и расширений
 RUN apt-get update && apt-get install --no-install-recommends --no-install-suggests -y \
 		git \
         curl \
@@ -25,8 +24,10 @@ RUN docker-php-ext-install \
         pdo_pgsql \
     && pecl install \
         amqp \
+        apcu \
     && docker-php-ext-enable \
-        amqp
+        amqp \
+        apcu
 
 # копируется файл для php
 COPY php.ini /usr/local/etc/php/php.ini
