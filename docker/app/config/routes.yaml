@@ -11,3 +11,7 @@ kernel:
 reports:
   resource: ../src/Reports/Infrastructure/Controller/
   type: attribute
+
+app_metrics:
+  path: /report/metrics/prometheus
+  controller: Artprima\PrometheusMetricsBundle\Controller\MetricsController::prometheus

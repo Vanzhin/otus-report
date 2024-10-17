@@ -23,12 +23,13 @@ class ResponseListener
         $header = $event->getResponse()->headers->get('Content-Type');
         $statusCode = $event->getResponse()->getStatusCode();
 
-        //        if (self::MIME_JSON === $header) {
-        $response = new JsonResponse();
-        $response->setStatusCode($statusCode);
-        $data = $this->transformer->buildResponseData($event->getResponse());
-        $response->setData($data);
-        $event->setResponse($response);
-        //        }
+        if (self::MIME_JSON === $header) {
+            $response = new JsonResponse();
+            $response->setStatusCode($statusCode);
+            $data = $this->transformer->buildResponseData($event->getResponse());
+            $response->setData($data);
+            $response->headers->add($event->getResponse()->headers->all());
+            $event->setResponse($response);
+        }
     }
 }
