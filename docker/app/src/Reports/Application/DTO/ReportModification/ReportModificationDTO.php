@@ -8,4 +8,5 @@ class ReportModificationDTO
 {
     public string $status;
     public string $changed_at;
+    public ?string $comment = null;
 }

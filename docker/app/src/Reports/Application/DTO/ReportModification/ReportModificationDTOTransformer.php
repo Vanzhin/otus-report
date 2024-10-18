@@ -13,6 +13,7 @@ class ReportModificationDTOTransformer
         $dto = new ReportModificationDTO();
         $dto->status = $modification->getStatus()->value;
         $dto->changed_at = $modification->getChangedAt()->format(DATE_ATOM);
+        $dto->comment = $modification->getComment();
 
         return $dto;
     }

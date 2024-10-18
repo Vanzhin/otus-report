@@ -93,7 +93,7 @@ class ReportController extends AbstractController
         return new JsonResponse($result);
     }
 
-    #[Route('/{id}/change-status/{status}', name: 'change-status', methods: ['GET'])]
+    #[Route('/{id}/change-status/{status}', name: 'change-status', methods: ['POST'])]
     public function changeStatus(string $id, string $status, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
