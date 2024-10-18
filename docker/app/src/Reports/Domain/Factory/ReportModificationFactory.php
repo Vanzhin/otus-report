@@ -17,12 +17,14 @@ readonly class ReportModificationFactory
     public function create(
         Report $report,
         string $status,
+        string $comment = null,
     ): ReportModification
     {
         return new ReportModification(
             $report,
             $status,
             $this->specification,
+            $comment,
         );
     }
 

@@ -92,15 +92,20 @@ class ReportController extends AbstractController
 
         return new JsonResponse($result);
     }
+
     #[Route('/{id}/change-status/{status}', name: 'change-status', methods: ['GET'])]
-    public function changeStatus(string $id, string $status): JsonResponse
+    public function changeStatus(string $id, string $status, Request $request): JsonResponse
     {
+        $data = json_decode($request->getContent(), true);
+        $comment = $data['comment'] ?? null;
+        AssertService::nullOrString($comment, 'Invalid type for comment provided.');
         $userUlid = $this->headersService->getUserUlid();
         AssertService::notNull($userUlid, 'No user\'s id provided.');
         $command = new AddModificationToReportCommand(
             $userUlid,
             $id,
-            $status
+            $status,
+            $comment
         );
         $result = $this->commandBus->execute($command);
 

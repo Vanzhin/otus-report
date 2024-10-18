@@ -20,6 +20,7 @@ class ReportModification extends Aggregate
         private Report                  $report,
         string                          $status,
         ReportModificationSpecification $specification,
+        private readonly ?string        $comment = null,
     )
     {
         $this->id = UlidService::generate();
@@ -47,6 +48,11 @@ class ReportModification extends Aggregate
     public function getReport(): Report
     {
         return $this->report;
+    }
+
+    public function getComment(): ?string
+    {
+        return $this->comment;
     }
 
     private function setStatus(string $status): void

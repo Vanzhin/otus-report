@@ -14,5 +14,6 @@
                 <cascade-persist/>
             </cascade>
         </many-to-one>
+        <field name="comment" type="string" length="500" nullable="true"/>
     </entity>
 </doctrine-mapping>

@@ -34,7 +34,7 @@ readonly class AddModificationToReportCommandHandler implements CommandHandlerIn
         if (!$this->accessControl->canAccess($command->userId, $report)) {
             throw new AccessDeniedHttpException('Access denied.');
         }
-        $modification = $this->modificationFactory->create($report, $command->newStatus);
+        $modification = $this->modificationFactory->create($report, $command->newStatus, $command->comment);
         $this->modificationRepository->save($modification);
 
         return new AddModificationToReportCommandResult();

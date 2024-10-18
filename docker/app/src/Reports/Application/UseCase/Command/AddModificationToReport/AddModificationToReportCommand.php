@@ -9,9 +9,10 @@ use App\Shared\Application\Command\Command;
 readonly class AddModificationToReportCommand extends Command
 {
     public function __construct(
-        public string $userId,
-        public string $reportId,
-        public string $newStatus,
+        public string  $userId,
+        public string  $reportId,
+        public string  $newStatus,
+        public ?string $comment = null
     )
     {
     }
