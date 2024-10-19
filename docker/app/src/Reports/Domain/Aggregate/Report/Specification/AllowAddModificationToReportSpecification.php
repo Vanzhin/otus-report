@@ -39,7 +39,8 @@ class AllowAddModificationToReportSpecification implements SpecificationInterfac
         $newStatus = $modification->getStatus()->value;
         AssertService::false($previousStatus === $newStatus, sprintf('Report status is \'%s\' already.', $newStatus));
         if ($previousStatus) {
-            AssertService::inArray($newStatus, self::ALLOWED_STATUSES_TO_CHANGE[$previousStatus]);
+            AssertService::inArray($newStatus, self::ALLOWED_STATUSES_TO_CHANGE[$previousStatus],
+                'Invalid or same as previous status for report provided.');
         }
     }
 }
