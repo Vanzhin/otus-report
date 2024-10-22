@@ -67,6 +67,6 @@
    docker run -d  -p 9000:8000 vanzhin/report:v1.5.1
    ```
 
-После чего, в браузере можно открыть страницу https://localhost
+После чего, в браузере можно открыть страницу https://localhost:9000
 
 *Profit !*
